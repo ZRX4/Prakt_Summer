@@ -185,6 +185,9 @@ namespace SUMMERprak {
 			this->mark2_radio_button = (gcnew System::Windows::Forms::RadioButton());
 			this->mark1_radio_button = (gcnew System::Windows::Forms::RadioButton());
 			this->SuspendLayout();
+			// 
+			// id_check_box
+			// 
 			this->id_check_box->AutoSize = true;
 			this->id_check_box->Location = System::Drawing::Point(36, 24);
 			this->id_check_box->Name = L"id_check_box";
@@ -192,16 +195,25 @@ namespace SUMMERprak {
 			this->id_check_box->TabIndex = 0;
 			this->id_check_box->Text = L"id";
 			this->id_check_box->UseVisualStyleBackColor = true;
+			// 
+			// text_box_id
+			// 
 			this->text_box_id->Location = System::Drawing::Point(119, 22);
 			this->text_box_id->Multiline = true;
 			this->text_box_id->Name = L"text_box_id";
 			this->text_box_id->Size = System::Drawing::Size(129, 26);
 			this->text_box_id->TabIndex = 1;
+			// 
+			// text_box_group
+			// 
 			this->text_box_group->Location = System::Drawing::Point(693, 20);
 			this->text_box_group->Multiline = true;
 			this->text_box_group->Name = L"text_box_group";
 			this->text_box_group->Size = System::Drawing::Size(129, 26);
 			this->text_box_group->TabIndex = 3;
+			// 
+			// group_check_box
+			// 
 			this->group_check_box->AutoSize = true;
 			this->group_check_box->Location = System::Drawing::Point(579, 24);
 			this->group_check_box->Name = L"group_check_box";
@@ -209,11 +221,17 @@ namespace SUMMERprak {
 			this->group_check_box->TabIndex = 2;
 			this->group_check_box->Text = L"Группа";
 			this->group_check_box->UseVisualStyleBackColor = true;
+			// 
+			// text_box_fio
+			// 
 			this->text_box_fio->Location = System::Drawing::Point(389, 24);
 			this->text_box_fio->Multiline = true;
 			this->text_box_fio->Name = L"text_box_fio";
 			this->text_box_fio->Size = System::Drawing::Size(161, 26);
 			this->text_box_fio->TabIndex = 5;
+			// 
+			// fio_check_box
+			// 
 			this->fio_check_box->AutoSize = true;
 			this->fio_check_box->Location = System::Drawing::Point(287, 24);
 			this->fio_check_box->Name = L"fio_check_box";
@@ -221,6 +239,9 @@ namespace SUMMERprak {
 			this->fio_check_box->TabIndex = 4;
 			this->fio_check_box->Text = L"ФИО";
 			this->fio_check_box->UseVisualStyleBackColor = true;
+			// 
+			// age_check_box
+			// 
 			this->age_check_box->AutoSize = true;
 			this->age_check_box->Location = System::Drawing::Point(36, 163);
 			this->age_check_box->Name = L"age_check_box";
@@ -228,26 +249,41 @@ namespace SUMMERprak {
 			this->age_check_box->TabIndex = 6;
 			this->age_check_box->Text = L"Возраст";
 			this->age_check_box->UseVisualStyleBackColor = true;
+			// 
+			// text_box_ot1
+			// 
 			this->text_box_ot1->Location = System::Drawing::Point(182, 162);
 			this->text_box_ot1->Name = L"text_box_ot1";
 			this->text_box_ot1->Size = System::Drawing::Size(100, 26);
 			this->text_box_ot1->TabIndex = 7;
+			// 
+			// text_box_do1
+			// 
 			this->text_box_do1->Location = System::Drawing::Point(324, 164);
 			this->text_box_do1->Name = L"text_box_do1";
 			this->text_box_do1->Size = System::Drawing::Size(104, 26);
 			this->text_box_do1->TabIndex = 8;
+			// 
+			// label_ot1
+			// 
 			this->label_ot1->AutoSize = true;
 			this->label_ot1->Location = System::Drawing::Point(141, 165);
 			this->label_ot1->Name = L"label_ot1";
 			this->label_ot1->Size = System::Drawing::Size(30, 20);
 			this->label_ot1->TabIndex = 9;
 			this->label_ot1->Text = L"От";
+			// 
+			// label_do1
+			// 
 			this->label_do1->AutoSize = true;
 			this->label_do1->Location = System::Drawing::Point(288, 164);
 			this->label_do1->Name = L"label_do1";
 			this->label_do1->Size = System::Drawing::Size(30, 20);
 			this->label_do1->TabIndex = 10;
 			this->label_do1->Text = L"До";
+			// 
+			// number_check_box
+			// 
 			this->number_check_box->AutoSize = true;
 			this->number_check_box->Location = System::Drawing::Point(579, 94);
 			this->number_check_box->Name = L"number_check_box";
@@ -255,16 +291,25 @@ namespace SUMMERprak {
 			this->number_check_box->TabIndex = 11;
 			this->number_check_box->Text = L"Номер";
 			this->number_check_box->UseVisualStyleBackColor = true;
+			// 
+			// text_box_number
+			// 
 			this->text_box_number->Location = System::Drawing::Point(693, 94);
 			this->text_box_number->Multiline = true;
 			this->text_box_number->Name = L"text_box_number";
 			this->text_box_number->Size = System::Drawing::Size(129, 26);
 			this->text_box_number->TabIndex = 12;
+			// 
+			// text_box_adres
+			// 
 			this->text_box_adres->Location = System::Drawing::Point(119, 96);
 			this->text_box_adres->Multiline = true;
 			this->text_box_adres->Name = L"text_box_adres";
 			this->text_box_adres->Size = System::Drawing::Size(129, 26);
 			this->text_box_adres->TabIndex = 14;
+			// 
+			// adres_check_box
+			// 
 			this->adres_check_box->AutoSize = true;
 			this->adres_check_box->Location = System::Drawing::Point(36, 94);
 			this->adres_check_box->Name = L"adres_check_box";
@@ -272,11 +317,17 @@ namespace SUMMERprak {
 			this->adres_check_box->TabIndex = 13;
 			this->adres_check_box->Text = L"Адрес";
 			this->adres_check_box->UseVisualStyleBackColor = true;
+			// 
+			// text_box_mail
+			// 
 			this->text_box_mail->Location = System::Drawing::Point(389, 96);
 			this->text_box_mail->Multiline = true;
 			this->text_box_mail->Name = L"text_box_mail";
 			this->text_box_mail->Size = System::Drawing::Size(161, 26);
 			this->text_box_mail->TabIndex = 16;
+			// 
+			// mail_check_box
+			// 
 			this->mail_check_box->AutoSize = true;
 			this->mail_check_box->Location = System::Drawing::Point(287, 94);
 			this->mail_check_box->Name = L"mail_check_box";
@@ -284,26 +335,41 @@ namespace SUMMERprak {
 			this->mail_check_box->TabIndex = 15;
 			this->mail_check_box->Text = L"Почта";
 			this->mail_check_box->UseVisualStyleBackColor = true;
+			// 
+			// label_do2
+			// 
 			this->label_do2->AutoSize = true;
 			this->label_do2->Location = System::Drawing::Point(398, 280);
 			this->label_do2->Name = L"label_do2";
 			this->label_do2->Size = System::Drawing::Size(30, 20);
 			this->label_do2->TabIndex = 21;
 			this->label_do2->Text = L"До";
+			// 
+			// label_ot2
+			// 
 			this->label_ot2->AutoSize = true;
 			this->label_ot2->Location = System::Drawing::Point(252, 283);
 			this->label_ot2->Name = L"label_ot2";
 			this->label_ot2->Size = System::Drawing::Size(30, 20);
 			this->label_ot2->TabIndex = 20;
 			this->label_ot2->Text = L"От";
+			// 
+			// text_box_do2
+			// 
 			this->text_box_do2->Location = System::Drawing::Point(434, 280);
 			this->text_box_do2->Name = L"text_box_do2";
 			this->text_box_do2->Size = System::Drawing::Size(104, 26);
 			this->text_box_do2->TabIndex = 19;
+			// 
+			// text_box_ot2
+			// 
 			this->text_box_ot2->Location = System::Drawing::Point(292, 278);
 			this->text_box_ot2->Name = L"text_box_ot2";
 			this->text_box_ot2->Size = System::Drawing::Size(100, 26);
 			this->text_box_ot2->TabIndex = 18;
+			// 
+			// button_clear
+			// 
 			this->button_clear->Location = System::Drawing::Point(627, 591);
 			this->button_clear->Name = L"button_clear";
 			this->button_clear->Size = System::Drawing::Size(167, 77);
@@ -311,60 +377,90 @@ namespace SUMMERprak {
 			this->button_clear->Text = L"Отчистить фильтр";
 			this->button_clear->UseVisualStyleBackColor = true;
 			this->button_clear->Click += gcnew System::EventHandler(this, &FilterForm::button_clear_Click);
+			// 
+			// label_marks_matanalis
+			// 
 			this->label_marks_matanalis->AutoSize = true;
 			this->label_marks_matanalis->Location = System::Drawing::Point(32, 431);
 			this->label_marks_matanalis->Name = L"label_marks_matanalis";
 			this->label_marks_matanalis->Size = System::Drawing::Size(98, 20);
 			this->label_marks_matanalis->TabIndex = 24;
 			this->label_marks_matanalis->Text = L"Мат.анализ";
+			// 
+			// label_marks_phisic
+			// 
 			this->label_marks_phisic->AutoSize = true;
 			this->label_marks_phisic->Location = System::Drawing::Point(32, 480);
 			this->label_marks_phisic->Name = L"label_marks_phisic";
 			this->label_marks_phisic->Size = System::Drawing::Size(67, 20);
 			this->label_marks_phisic->TabIndex = 25;
 			this->label_marks_phisic->Text = L"Физика";
+			// 
+			// label_marks_proga
+			// 
 			this->label_marks_proga->AutoSize = true;
 			this->label_marks_proga->Location = System::Drawing::Point(32, 528);
 			this->label_marks_proga->Name = L"label_marks_proga";
 			this->label_marks_proga->Size = System::Drawing::Size(158, 20);
 			this->label_marks_proga->TabIndex = 26;
 			this->label_marks_proga->Text = L"Программирование";
+			// 
+			// label_marks_history
+			// 
 			this->label_marks_history->AutoSize = true;
 			this->label_marks_history->Location = System::Drawing::Point(318, 528);
 			this->label_marks_history->Name = L"label_marks_history";
 			this->label_marks_history->Size = System::Drawing::Size(73, 20);
 			this->label_marks_history->TabIndex = 29;
 			this->label_marks_history->Text = L"История";
+			// 
+			// label_marks_OIT
+			// 
 			this->label_marks_OIT->AutoSize = true;
 			this->label_marks_OIT->Location = System::Drawing::Point(318, 480);
 			this->label_marks_OIT->Name = L"label_marks_OIT";
 			this->label_marks_OIT->Size = System::Drawing::Size(41, 20);
 			this->label_marks_OIT->TabIndex = 28;
 			this->label_marks_OIT->Text = L"ОИТ";
+			// 
+			// label_marks_ecolog
+			// 
 			this->label_marks_ecolog->AutoSize = true;
 			this->label_marks_ecolog->Location = System::Drawing::Point(318, 431);
 			this->label_marks_ecolog->Name = L"label_marks_ecolog";
 			this->label_marks_ecolog->Size = System::Drawing::Size(82, 20);
 			this->label_marks_ecolog->TabIndex = 27;
 			this->label_marks_ecolog->Text = L"Экология";
+			// 
+			// label_marks_angl
+			// 
 			this->label_marks_angl->AutoSize = true;
 			this->label_marks_angl->Location = System::Drawing::Point(558, 528);
 			this->label_marks_angl->Name = L"label_marks_angl";
 			this->label_marks_angl->Size = System::Drawing::Size(50, 20);
 			this->label_marks_angl->TabIndex = 32;
 			this->label_marks_angl->Text = L"Ин.яз";
+			// 
+			// label_marks_diskret
+			// 
 			this->label_marks_diskret->AutoSize = true;
 			this->label_marks_diskret->Location = System::Drawing::Point(558, 480);
 			this->label_marks_diskret->Name = L"label_marks_diskret";
 			this->label_marks_diskret->Size = System::Drawing::Size(154, 20);
 			this->label_marks_diskret->TabIndex = 31;
 			this->label_marks_diskret->Text = L"Дискр.Математика";
+			// 
+			// label_marks_fisra
+			// 
 			this->label_marks_fisra->AutoSize = true;
 			this->label_marks_fisra->Location = System::Drawing::Point(558, 431);
 			this->label_marks_fisra->Name = L"label_marks_fisra";
 			this->label_marks_fisra->Size = System::Drawing::Size(64, 20);
 			this->label_marks_fisra->TabIndex = 30;
 			this->label_marks_fisra->Text = L"Физ-ра";
+			// 
+			// button_parametr
+			// 
 			this->button_parametr->Location = System::Drawing::Point(36, 591);
 			this->button_parametr->Name = L"button_parametr";
 			this->button_parametr->Size = System::Drawing::Size(167, 77);
@@ -372,42 +468,72 @@ namespace SUMMERprak {
 			this->button_parametr->Text = L"Отобразить параметры";
 			this->button_parametr->UseVisualStyleBackColor = true;
 			this->button_parametr->Click += gcnew System::EventHandler(this, &FilterForm::button_parametr_Click);
+			// 
+			// text_box_matanalis
+			// 
 			this->text_box_matanalis->Location = System::Drawing::Point(213, 425);
 			this->text_box_matanalis->Name = L"text_box_matanalis";
 			this->text_box_matanalis->Size = System::Drawing::Size(55, 26);
 			this->text_box_matanalis->TabIndex = 34;
+			// 
+			// text_box_phisic
+			// 
 			this->text_box_phisic->Location = System::Drawing::Point(213, 474);
 			this->text_box_phisic->Name = L"text_box_phisic";
 			this->text_box_phisic->Size = System::Drawing::Size(55, 26);
 			this->text_box_phisic->TabIndex = 35;
+			// 
+			// text_box_proga
+			// 
 			this->text_box_proga->Location = System::Drawing::Point(213, 528);
 			this->text_box_proga->Name = L"text_box_proga";
 			this->text_box_proga->Size = System::Drawing::Size(55, 26);
 			this->text_box_proga->TabIndex = 36;
+			// 
+			// text_box_ecolog
+			// 
 			this->text_box_ecolog->Location = System::Drawing::Point(434, 425);
 			this->text_box_ecolog->Name = L"text_box_ecolog";
 			this->text_box_ecolog->Size = System::Drawing::Size(55, 26);
 			this->text_box_ecolog->TabIndex = 37;
+			// 
+			// text_box_OIT
+			// 
 			this->text_box_OIT->Location = System::Drawing::Point(434, 474);
 			this->text_box_OIT->Name = L"text_box_OIT";
 			this->text_box_OIT->Size = System::Drawing::Size(55, 26);
 			this->text_box_OIT->TabIndex = 38;
+			// 
+			// text_box_history
+			// 
 			this->text_box_history->Location = System::Drawing::Point(434, 525);
 			this->text_box_history->Name = L"text_box_history";
 			this->text_box_history->Size = System::Drawing::Size(55, 26);
 			this->text_box_history->TabIndex = 39;
+			// 
+			// text_box_fisra
+			// 
 			this->text_box_fisra->Location = System::Drawing::Point(739, 425);
 			this->text_box_fisra->Name = L"text_box_fisra";
 			this->text_box_fisra->Size = System::Drawing::Size(55, 26);
 			this->text_box_fisra->TabIndex = 40;
+			// 
+			// text_box_diskret
+			// 
 			this->text_box_diskret->Location = System::Drawing::Point(739, 474);
 			this->text_box_diskret->Name = L"text_box_diskret";
 			this->text_box_diskret->Size = System::Drawing::Size(55, 26);
 			this->text_box_diskret->TabIndex = 41;
+			// 
+			// text_box_angl
+			// 
 			this->text_box_angl->Location = System::Drawing::Point(739, 522);
 			this->text_box_angl->Name = L"text_box_angl";
 			this->text_box_angl->Size = System::Drawing::Size(55, 26);
 			this->text_box_angl->TabIndex = 42;
+			// 
+			// mark2_radio_button
+			// 
 			this->mark2_radio_button->AutoSize = true;
 			this->mark2_radio_button->Location = System::Drawing::Point(36, 375);
 			this->mark2_radio_button->Name = L"mark2_radio_button";
@@ -415,6 +541,9 @@ namespace SUMMERprak {
 			this->mark2_radio_button->TabIndex = 43;
 			this->mark2_radio_button->Text = L"Поиск по оценке";
 			this->mark2_radio_button->UseVisualStyleBackColor = true;
+			// 
+			// mark1_radio_button
+			// 
 			this->mark1_radio_button->AutoSize = true;
 			this->mark1_radio_button->Location = System::Drawing::Point(36, 279);
 			this->mark1_radio_button->Name = L"mark1_radio_button";
@@ -422,6 +551,9 @@ namespace SUMMERprak {
 			this->mark1_radio_button->TabIndex = 44;
 			this->mark1_radio_button->Text = L"Оценки по диапозону";
 			this->mark1_radio_button->UseVisualStyleBackColor = true;
+			// 
+			// FilterForm
+			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(9, 20);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->BackColor = System::Drawing::Color::PeachPuff;
@@ -469,6 +601,8 @@ namespace SUMMERprak {
 			this->Controls->Add(this->group_check_box);
 			this->Controls->Add(this->text_box_id);
 			this->Controls->Add(this->id_check_box);
+			this->MaximizeBox = false;
+			this->MinimizeBox = false;
 			this->Name = L"FilterForm";
 			this->Text = L"Фильтры для поиска";
 			this->Load += gcnew System::EventHandler(this, &FilterForm::FilterForm_Load);

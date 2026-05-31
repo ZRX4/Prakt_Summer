@@ -131,6 +131,8 @@ namespace SUMMERprak {
 			this->Controls->Add(this->label_main);
 			this->Controls->Add(this->pols_main_button);
 			this->Controls->Add(this->admin_main_button);
+			this->MaximizeBox = false;
+			this->MinimizeBox = false;
 			this->Name = L"MainForm";
 			this->Text = L"Main";
 			this->ResumeLayout(false);

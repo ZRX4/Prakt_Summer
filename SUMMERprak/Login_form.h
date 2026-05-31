@@ -122,6 +122,8 @@ namespace SUMMERprak {
 			this->Controls->Add(this->pass_text);
 			this->Controls->Add(this->menuStrip1);
 			this->MainMenuStrip = this->menuStrip1;
+			this->MaximizeBox = false;
+			this->MinimizeBox = false;
 			this->Name = L"Login_form";
 			this->Text = L"¬вод парол€";
 			this->menuStrip1->ResumeLayout(false);

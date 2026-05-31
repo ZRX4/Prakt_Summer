@@ -2,6 +2,7 @@
 #include "MainForm.h"   
 #include <io.h>
 
+using namespace System::Drawing::Drawing2D;
 
 namespace SUMMERprak {
     void Pols_main_form::mainToolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e) {
@@ -15,14 +16,22 @@ namespace SUMMERprak {
     }
 
     void Pols_main_form::Pols_main_form_Load(System::Object^ sender, System::EventArgs^ e) {
-        this->dataGridViewPols->ColumnHeadersDefaultCellStyle->WrapMode = System::Windows::Forms::DataGridViewTriState::True;
 
+        GraphicsPath^ roundPath = gcnew GraphicsPath();
+        roundPath->AddEllipse(0, 0, help_button->Width, help_button->Height);
+
+        // Обрезаем кнопку по этому пути
+        help_button->Region = gcnew System::Drawing::Region(roundPath);
+
+        this->dataGridViewPols->ColumnHeadersDefaultCellStyle->WrapMode = System::Windows::Forms::DataGridViewTriState::True;
+        
         // 2. Отключаем авто-высоту шапки и задаем её вручную (например, 45 пикселей, чтобы влезло две строки)
         this->dataGridViewPols->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::DisableResizing;
         this->dataGridViewPols->ColumnHeadersHeight = 45;
 
         // 2. Включаем автоматическое растяжение столбцов СТРОГО по ширине текста в шапке
         this->dataGridViewPols->AutoSizeColumnsMode = System::Windows::Forms::DataGridViewAutoSizeColumnsMode::ColumnHeader;
+        this->dataGridViewPols->AutoSizeColumnsMode = System::Windows::Forms::DataGridViewAutoSizeColumnsMode::Fill;
         this->dataGridViewPols->Columns[1]->AutoSizeMode = System::Windows::Forms::DataGridViewAutoSizeColumnMode::AllCells;
         this->dataGridViewPols->Columns[4]->HeaderText = "Оценки\n1 2 3 4 5 6 7 8 9";
 
@@ -157,7 +166,7 @@ namespace SUMMERprak {
             System::Windows::Forms::MessageBox::Show(printline);
         }
         else {
-            // Если ничего не нашли, просто удаляем пустой временный файл
+            
             System::IO::File::Delete(tempPath);
             System::Windows::Forms::MessageBox::Show("id Для удаления не найдены");
         }
@@ -182,93 +191,263 @@ namespace SUMMERprak {
         }
     }
 
+    int GetMinUnusedId(System::String^ filePath) {
+        // Если файл еще не создан или пуст, первый ID будет 1
+        if (!System::IO::File::Exists(filePath)) return 1;
 
+        // Используем стандартный .NET список для хранения занятых ID
+        System::Collections::Generic::List<int>^ busyIds = gcnew System::Collections::Generic::List<int>();
 
-    void Pols_main_form::Save_data_button_Click(System::Object^ sender, System::EventArgs^ e) {
+        System::IO::StreamReader^ reader = gcnew System::IO::StreamReader(filePath, System::Text::Encoding::GetEncoding(1251));
+        System::String^ line;
 
-        System::String^ sourcePath = "database.txt";
-        System::String^ tempPath = "database_temp.txt";
+        while ((line = reader->ReadLine()) != nullptr) {
+            if (System::String::IsNullOrWhiteSpace(line)) continue;
 
-        bool hasNewRows = false;
-
-        // === ЭТАП 1: ДОЗАПИСЬ ТОЛЬКО НОВЫХ СТРОК В КОНЕЦ ФАЙЛА ===
-        // Открываем файл в режиме дозаписи (true)
-        System::IO::StreamWriter^ appendWriter = gcnew System::IO::StreamWriter(sourcePath, true, System::Text::Encoding::GetEncoding(1251));
-
-        for (int i = 0; i < dataGridViewPols->Rows->Count; i++) {
-            if (dataGridViewPols->Rows[i]->IsNewRow) continue;
-
-            // Если ячейка ID пустая — это абсолютно новый добавленный пользователь
-            if (dataGridViewPols->Rows[i]->Cells[0]->Value == nullptr ||
-                System::String::IsNullOrWhiteSpace(dataGridViewPols->Rows[i]->Cells[0]->Value->ToString())) {
-
-                // Временно закрываем поток дозаписи, генерируем минимальный свободный ID и открываем снова
-                appendWriter->Close();
-                int newId = 0; // Ваша функция из прошлых шагов
-                appendWriter = gcnew System::IO::StreamWriter(sourcePath, true, System::Text::Encoding::GetEncoding(1251));
-
-                // Записываем сгенерированный ID в таблицу
-                dataGridViewPols->Rows[i]->Cells[0]->Value = newId.ToString();
-
-                // Собираем данные строки и пишем в конец файла
-                System::String^ newLine = BuildStringFromRow(i);
-                appendWriter->WriteLine(newLine);
-                hasNewRows = true;
+            array<System::String^>^ fields = line->Split('\t');
+            if (fields->Length > 0) {
+                int currentId = 0;
+                // Если первый элемент строки — число, добавляем его в список занятых
+                if (System::Int32::TryParse(fields[0]->Trim(), currentId)) {
+                    busyIds->Add(currentId);
+                }
             }
         }
-        appendWriter->Close();
+        reader->Close();
+
+        
+        busyIds->Sort();
+
+        int targetId = 1;
+        for (int i = 0; i < busyIds->Count; i++) {
+            if (busyIds[i] == targetId) {
+                targetId++; 
+            }
+            else if (busyIds[i] > targetId) {
+                break; 
+            }
+        }
+
+        return targetId;
+    }
 
 
-        // === ЭТАП 2: ТОЧЕЧНОЕ ОБНОВЛЕНИЕ ИЗМЕНЁННЫХ СТРОК ===
-        // Выполняется только в том случае, если в процессе редактирования таблицы менялись старые данные
-        if (modifiedIds->Count > 0) {
-            System::IO::StreamReader^ reader = gcnew System::IO::StreamReader(sourcePath, System::Text::Encoding::GetEncoding(1251));
-            System::IO::StreamWriter^ tempWriter = gcnew System::IO::StreamWriter(tempPath, false, System::Text::Encoding::GetEncoding(1251));
-            System::String^ line;
+    int proverka_data(System::String^ strprov)
+    {
+        if (System::String::IsNullOrWhiteSpace(strprov) || strprov->Length < 4)
+            return 0;
 
-            while ((line = reader->ReadLine()) != nullptr) {
-                if (System::String::IsNullOrWhiteSpace(line)) continue;
+        array<String^>^ provprov = strprov->Split('\t');
 
-                array<System::String^>^ fields = line->Split('\t');
-                System::String^ fileId = fields[0]->Trim();
+        // Проверка количества полей (ID + 7 полей = 8)
+        if (provprov->Length < 8)
+        {
+            MessageBox::Show("Неверный формат строки: недостаточно полей.", "Ошибка");
+            return 0;
+        }
 
-                // Если ID текущей строки из файла совпадает с одним из изменённых ID
-                if (modifiedIds->Contains(fileId)) {
-                    // Ищем эту строку в таблице DataGridView, чтобы взять обновленные данные
-                    for (int i = 0; i < dataGridViewPols->Rows->Count; i++) {
-                        if (dataGridViewPols->Rows[i]->IsNewRow) continue;
+        // Проверка на пустые значения ключевых полей (индексы 1-7)
+        for (int i = 1; i <= 7; i++)
+        {
+            if (System::String::IsNullOrWhiteSpace(provprov[i]))
+            {
+                MessageBox::Show("Все поля должны быть заполнены.", "Ошибка");
+                return 0;
+            }
+        }
 
-                        if (dataGridViewPols->Rows[i]->Cells[0]->Value->ToString()->Trim() == fileId) {
-                            // Вместо старой строки из файла пишем в темп-файл обновленную строку из таблицы
-                            tempWriter->WriteLine(BuildStringFromRow(i));
-                            break;
-                        }
-                    }
-                }
-                else {
-                    // Если строка не менялась, переносим её как есть
-                    tempWriter->WriteLine(line);
-                }
+        // Проверка возраста (поле 2)
+        try
+        {
+            int b = Convert::ToInt32(provprov[2]->Trim());
+            if (b < 1926 || b > 2010)
+            {
+                MessageBox::Show("Ошибка! Возраст должен быть целым числом от 1926 до 2010.",
+                    "Неверный формат");
+                return 0;
+            }
+        }
+        catch (Exception^)
+        {
+            MessageBox::Show("Ошибка! Возраст должен быть целым числом.",
+                "Неверный формат");
+            return 0;
+        }
+
+        // Проверка оценок (поле 4)
+        try
+        {
+            array<String^>^ marki = provprov[4]->Split(
+                gcnew array<wchar_t>{' '}, StringSplitOptions::RemoveEmptyEntries);
+
+            if (marki->Length != 9)
+            {
+                MessageBox::Show("Оценки должны содержать ровно 9 цифр от 0 до 5!",
+                    "Неверный формат");
+                return 0;
             }
 
-            reader->Close();
-            tempWriter->Close();
+            for (int i = 0; i < marki->Length; i++)
+            {
+                int mark = Convert::ToInt32(marki[i]->Trim());
+                if (mark < 0 || mark > 5)
+                {
+                    MessageBox::Show("Каждая оценка должна быть от 0 до 5!",
+                        "Неверный формат");
+                    return 0;
+                }
+            }
+        }
+        catch (Exception^)
+        {
+            MessageBox::Show("Ошибка! Оценки должны быть целыми числами от 0 до 5.",
+                "Неверный формат");
+            return 0;
+        }
 
-            // Заменяем оригинальный файл временным файлом с обновлениями
+        // Проверка ФИО на отсутствие цифр (поле 1)
+        for (int i = 0; i < provprov[1]->Length; i++)
+        {
+            if (Char::IsDigit(provprov[1][i]))
+            {
+                MessageBox::Show("Ошибка! ФИО не должно содержать цифр.",
+                    "Неверный формат");
+                return 0;
+            }
+        }
+
+        return 1; // все проверки пройдены
+    }
+
+
+
+
+    void Pols_main_form::Save_data_button_Click(System::Object^ sender, System::EventArgs^ e)
+    {
+        String^ sourcePath = "database.txt";
+        String^ tempPath = "database_temp.txt";
+
+        // ---------- 1. Предварительная проверка ВСЕХ строк таблицы ----------
+        for (int i = 0; i < dataGridViewPols->Rows->Count; i++)
+        {
+            if (dataGridViewPols->Rows[i]->IsNewRow) continue;
+            
+            // Строка считается новой, если ID пуст
+            bool isNew = (dataGridViewPols->Rows[i]->Cells[0]->Value == nullptr ||
+                String::IsNullOrWhiteSpace(dataGridViewPols->Rows[i]->Cells[0]->ToString()));
+
+            // Строка изменена, если её ID есть в списке modifiedIds
+            bool isModified = false;
+            if (dataGridViewPols->Rows[i]->Cells[0]->Value != nullptr) {
+                isModified = (modifiedIds != nullptr && modifiedIds->Contains(
+                    dataGridViewPols->Rows[i]->Cells[0]->Value->ToString()->Trim()));
+            }
+            
+          
+
+            if (isNew || isModified)
+            {
+                String^ line =  "0" + "\t" + BuildStringFromRow(i);
+                if (!proverka_data(line))
+                {
+                    // Ошибка уже показана в proverka_data, просто выходим
+                    return;
+                }
+            }
+        }
+
+        
+        bool hasNewRows = false;
+
+        // 2.1. Генерация ID для новых строк и запись в конец файла
+        System::IO::StreamWriter^ appendWriter = nullptr;
+        try
+        {
+            appendWriter = gcnew System::IO::StreamWriter(sourcePath, true, System::Text::Encoding::GetEncoding(1251));
+
+            for (int i = 0; i < dataGridViewPols->Rows->Count; i++)
+            {
+                if (dataGridViewPols->Rows[i]->IsNewRow) continue;
+
+                if (dataGridViewPols->Rows[i]->Cells[0]->Value == nullptr ||
+                    String::IsNullOrWhiteSpace(dataGridViewPols->Rows[i]->Cells[0]->Value->ToString()))
+                {
+                    // Получаем минимальный свободный ID (файл сейчас не заблокирован, т.к. мы ещё не читаем)
+                    appendWriter->Close();
+                    int newId = GetMinUnusedId(sourcePath);
+                    dataGridViewPols->Rows[i]->Cells[0]->Value = newId.ToString();
+                    appendWriter = gcnew System::IO::StreamWriter(sourcePath, true, System::Text::Encoding::GetEncoding(1251));
+                    String^ newLine = BuildStringFromRow(i);
+                    appendWriter->WriteLine(newId.ToString()+"\t" + newLine);
+                    hasNewRows = true;
+                }
+            }
+        }
+        finally
+        {
+            if (appendWriter != nullptr)
+                appendWriter->Close();
+        }
+
+        // 2.2. Обновление изменённых строк
+        if (modifiedIds != nullptr && modifiedIds->Count > 0)
+        {
+            
+            System::IO::StreamReader^ reader = nullptr;
+            System::IO::StreamWriter ^ tempWriter = nullptr;
+            try
+            {
+                reader = gcnew System::IO::StreamReader(sourcePath, System::Text::Encoding::GetEncoding(1251));
+                tempWriter = gcnew System::IO::StreamWriter(tempPath, false, System::Text::Encoding::GetEncoding(1251));
+
+                String^ line;
+                while ((line = reader->ReadLine()) != nullptr)
+                {
+                    if (String::IsNullOrWhiteSpace(line)) continue;
+
+                    array<String^>^ fields = line->Split('\t');
+                    String^ fileId = fields[0]->Trim();
+
+                    if (modifiedIds->Contains(fileId))
+                    {
+                        // Ищем строку с таким ID в DataGridView
+                        bool found = false;
+                        for (int i = 0; i < dataGridViewPols->Rows->Count; i++)
+                        {
+                            if (dataGridViewPols->Rows[i]->IsNewRow) continue;
+                            String^ gridId = dataGridViewPols->Rows[i]->Cells[0]->Value->ToString()->Trim();
+                            if (gridId == fileId)
+                            {
+                                tempWriter->WriteLine(gridId+"\t"+BuildStringFromRow(i));
+                                found = true;
+                                break;
+                            }
+                        }
+                        if (!found) // На всякий случай, если вдруг исчезла
+                            tempWriter->WriteLine(line);
+                    }
+                    else
+                    {
+                        tempWriter->WriteLine(line);
+                    }
+                }
+            }
+            finally
+            {
+                if (reader != nullptr) reader->Close();
+                if (tempWriter != nullptr) tempWriter->Close();
+            }
+
+            // Замена оригинального файла временным
             System::IO::File::Delete(sourcePath);
             System::IO::File::Move(tempPath, sourcePath);
 
-            // Очищаем список изменений после успешного сохранения
             modifiedIds->Clear();
         }
 
-        // Сообщаем пользователю о результате работы
-        if (hasNewRows || modifiedIds->Count == 0) {
+        // ---------- 3. Сообщение об успехе ----------
+        if (hasNewRows || (modifiedIds != nullptr && modifiedIds->Count == 0))
             MessageBox::Show("Изменения успешно сохранены в БД!", "Успех");
-        }
-
-
-
     }
 }
 

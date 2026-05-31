@@ -32,6 +32,10 @@ namespace SUMMERprak {
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ marks_row;
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ dopinfo_row;
 	private: System::Windows::Forms::Button^ Save_data_button;
+	private: System::Windows::Forms::Button^ help_button;
+	private: System::Windows::Forms::ToolTip^ toolTip1;
+
+
 
 
 
@@ -88,6 +92,7 @@ namespace SUMMERprak {
 
 
 	private: System::Windows::Forms::ToolStripMenuItem^ filtersToolStripMenuItem;
+	private: System::ComponentModel::IContainer^ components;
 
 
 
@@ -95,7 +100,7 @@ namespace SUMMERprak {
 		/// <summary>
 		/// ќб€зательна€ переменна€ конструктора.
 		/// </summary>
-		System::ComponentModel::Container ^components;
+
 
 #pragma region Windows Form Designer generated code
 		/// <summary>
@@ -104,6 +109,7 @@ namespace SUMMERprak {
 		/// </summary>
 		void InitializeComponent(void)
 		{
+			this->components = (gcnew System::ComponentModel::Container());
 			System::Windows::Forms::DataGridViewCellStyle^ dataGridViewCellStyle1 = (gcnew System::Windows::Forms::DataGridViewCellStyle());
 			this->dataGridViewPols = (gcnew System::Windows::Forms::DataGridView());
 			this->id_row = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
@@ -122,6 +128,8 @@ namespace SUMMERprak {
 			this->delet_text_box = (gcnew System::Windows::Forms::TextBox());
 			this->id_delet_label = (gcnew System::Windows::Forms::Label());
 			this->Save_data_button = (gcnew System::Windows::Forms::Button());
+			this->help_button = (gcnew System::Windows::Forms::Button());
+			this->toolTip1 = (gcnew System::Windows::Forms::ToolTip(this->components));
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridViewPols))->BeginInit();
 			this->menuStrip2->SuspendLayout();
 			this->SuspendLayout();
@@ -130,6 +138,9 @@ namespace SUMMERprak {
 			// 
 			this->dataGridViewPols->AllowUserToAddRows = false;
 			this->dataGridViewPols->AllowUserToDeleteRows = false;
+			this->dataGridViewPols->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Bottom)
+				| System::Windows::Forms::AnchorStyles::Left)
+				| System::Windows::Forms::AnchorStyles::Right));
 			this->dataGridViewPols->AutoSizeRowsMode = System::Windows::Forms::DataGridViewAutoSizeRowsMode::AllCells;
 			this->dataGridViewPols->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::AutoSize;
 			this->dataGridViewPols->Columns->AddRange(gcnew cli::array< System::Windows::Forms::DataGridViewColumn^  >(6) {
@@ -145,13 +156,13 @@ namespace SUMMERprak {
 			dataGridViewCellStyle1->SelectionForeColor = System::Drawing::SystemColors::HighlightText;
 			dataGridViewCellStyle1->WrapMode = System::Windows::Forms::DataGridViewTriState::True;
 			this->dataGridViewPols->DefaultCellStyle = dataGridViewCellStyle1;
-			this->dataGridViewPols->Location = System::Drawing::Point(48, 57);
+			this->dataGridViewPols->Location = System::Drawing::Point(57, 69);
 			this->dataGridViewPols->Name = L"dataGridViewPols";
 			this->dataGridViewPols->ReadOnly = true;
 			this->dataGridViewPols->RowHeadersVisible = false;
 			this->dataGridViewPols->RowHeadersWidth = 62;
 			this->dataGridViewPols->RowTemplate->Height = 28;
-			this->dataGridViewPols->Size = System::Drawing::Size(1201, 385);
+			this->dataGridViewPols->Size = System::Drawing::Size(1306, 465);
 			this->dataGridViewPols->TabIndex = 0;
 			this->dataGridViewPols->CellValueChanged += gcnew System::Windows::Forms::DataGridViewCellEventHandler(this, &Pols_main_form::dataGridViewPols_CellValueChanged);
 			// 
@@ -229,29 +240,30 @@ namespace SUMMERprak {
 			});
 			this->menuStrip2->Location = System::Drawing::Point(0, 0);
 			this->menuStrip2->Name = L"menuStrip2";
-			this->menuStrip2->Size = System::Drawing::Size(1944, 54);
+			this->menuStrip2->Size = System::Drawing::Size(1436, 33);
 			this->menuStrip2->TabIndex = 2;
 			this->menuStrip2->Text = L"menuStrip2";
 			// 
 			// mainToolStripMenuItem
 			// 
 			this->mainToolStripMenuItem->Name = L"mainToolStripMenuItem";
-			this->mainToolStripMenuItem->Size = System::Drawing::Size(67, 48);
+			this->mainToolStripMenuItem->Size = System::Drawing::Size(67, 29);
 			this->mainToolStripMenuItem->Text = L"main";
 			this->mainToolStripMenuItem->Click += gcnew System::EventHandler(this, &Pols_main_form::mainToolStripMenuItem_Click);
 			// 
 			// filtersToolStripMenuItem
 			// 
 			this->filtersToolStripMenuItem->Name = L"filtersToolStripMenuItem";
-			this->filtersToolStripMenuItem->Size = System::Drawing::Size(71, 48);
+			this->filtersToolStripMenuItem->Size = System::Drawing::Size(71, 29);
 			this->filtersToolStripMenuItem->Text = L"filters";
 			this->filtersToolStripMenuItem->Click += gcnew System::EventHandler(this, &Pols_main_form::filtersToolStripMenuItem_Click);
 			// 
 			// delet_pols_button
 			// 
-			this->delet_pols_button->Location = System::Drawing::Point(75, 479);
+			this->delet_pols_button->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Bottom | System::Windows::Forms::AnchorStyles::Left));
+			this->delet_pols_button->Location = System::Drawing::Point(57, 619);
 			this->delet_pols_button->Name = L"delet_pols_button";
-			this->delet_pols_button->Size = System::Drawing::Size(172, 70);
+			this->delet_pols_button->Size = System::Drawing::Size(131, 82);
 			this->delet_pols_button->TabIndex = 3;
 			this->delet_pols_button->Text = L"”далить ";
 			this->delet_pols_button->UseVisualStyleBackColor = true;
@@ -259,16 +271,18 @@ namespace SUMMERprak {
 			// 
 			// delet_text_box
 			// 
-			this->delet_text_box->Location = System::Drawing::Point(274, 479);
+			this->delet_text_box->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Bottom | System::Windows::Forms::AnchorStyles::Left));
+			this->delet_text_box->Location = System::Drawing::Point(205, 619);
 			this->delet_text_box->Multiline = true;
 			this->delet_text_box->Name = L"delet_text_box";
-			this->delet_text_box->Size = System::Drawing::Size(131, 70);
+			this->delet_text_box->Size = System::Drawing::Size(222, 82);
 			this->delet_text_box->TabIndex = 4;
 			// 
 			// id_delet_label
 			// 
+			this->id_delet_label->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Bottom | System::Windows::Forms::AnchorStyles::Left));
 			this->id_delet_label->AutoSize = true;
-			this->id_delet_label->Location = System::Drawing::Point(253, 456);
+			this->id_delet_label->Location = System::Drawing::Point(201, 596);
 			this->id_delet_label->Name = L"id_delet_label";
 			this->id_delet_label->Size = System::Drawing::Size(167, 20);
 			this->id_delet_label->TabIndex = 5;
@@ -276,27 +290,46 @@ namespace SUMMERprak {
 			// 
 			// Save_data_button
 			// 
-			this->Save_data_button->Location = System::Drawing::Point(1077, 479);
+			this->Save_data_button->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Bottom | System::Windows::Forms::AnchorStyles::Right));
+			this->Save_data_button->Location = System::Drawing::Point(1149, 619);
 			this->Save_data_button->Name = L"Save_data_button";
-			this->Save_data_button->Size = System::Drawing::Size(172, 70);
+			this->Save_data_button->Size = System::Drawing::Size(222, 82);
 			this->Save_data_button->TabIndex = 6;
 			this->Save_data_button->Text = L"—охранить изминени€";
 			this->Save_data_button->UseVisualStyleBackColor = true;
 			this->Save_data_button->Click += gcnew System::EventHandler(this, &Pols_main_form::Save_data_button_Click);
+			// 
+			// help_button
+			// 
+			this->help_button->BackColor = System::Drawing::Color::PeachPuff;
+			this->help_button->FlatAppearance->BorderSize = 0;
+			this->help_button->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
+			this->help_button->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 14, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(204)));
+			this->help_button->Location = System::Drawing::Point(1369, 69);
+			this->help_button->Name = L"help_button";
+			this->help_button->Size = System::Drawing::Size(60, 60);
+			this->help_button->TabIndex = 7;
+			this->help_button->Text = L"\?";
+			this->help_button->UseVisualStyleBackColor = false;
+			this->help_button->Click += gcnew System::EventHandler(this, &Pols_main_form::help_button_Click);
 			// 
 			// Pols_main_form
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(9, 20);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->BackColor = System::Drawing::Color::PeachPuff;
-			this->ClientSize = System::Drawing::Size(1296, 561);
+			this->ClientSize = System::Drawing::Size(1436, 726);
+			this->Controls->Add(this->help_button);
 			this->Controls->Add(this->Save_data_button);
+			this->Controls->Add(this->delet_pols_button);
 			this->Controls->Add(this->id_delet_label);
 			this->Controls->Add(this->delet_text_box);
-			this->Controls->Add(this->delet_pols_button);
-			this->Controls->Add(this->dataGridViewPols);
 			this->Controls->Add(this->menuStrip2);
+			this->Controls->Add(this->dataGridViewPols);
 			this->ForeColor = System::Drawing::SystemColors::ActiveCaptionText;
+			this->MaximizeBox = false;
+			this->MinimizeBox = false;
 			this->Name = L"Pols_main_form";
 			this->Text = L"Ѕаза ƒанных (пользовательский просмотр)";
 			this->Load += gcnew System::EventHandler(this, &Pols_main_form::Pols_main_form_Load);
@@ -338,21 +371,49 @@ private: System::Void Pols_main_form_Load(System::Object^ sender, System::EventA
 private: System::Void delet_pols_button_Click(System::Object^ sender, System::EventArgs^ e);
 private: System::Void Save_data_button_Click(System::Object^ sender, System::EventArgs^ e);
 private: System::Void dataGridViewPols_CellValueChanged(System::Object^ sender, System::Windows::Forms::DataGridViewCellEventArgs^ e);
+
 private: System::String^ BuildStringFromRow(int rowIndex) {
 
-		System::String^ id = dataGridViewPols->Rows[rowIndex]->Cells[0]->Value->ToString()->Trim();
+		//System::String^ id = dataGridViewPols->Rows[rowIndex]->Cells[0]->Value->ToString()->Trim();
 		System::String^ fio = dataGridViewPols->Rows[rowIndex]->Cells[1]->Value != nullptr ? dataGridViewPols->Rows[rowIndex]->Cells[1]->Value->ToString()->Trim() : "-";
 		System::String^ age = dataGridViewPols->Rows[rowIndex]->Cells[2]->Value != nullptr ? dataGridViewPols->Rows[rowIndex]->Cells[2]->Value->ToString()->Trim() : "-";
 		System::String^ group = dataGridViewPols->Rows[rowIndex]->Cells[3]->Value != nullptr ? dataGridViewPols->Rows[rowIndex]->Cells[3]->Value->ToString()->Trim() : " - ";
 		System::String^ marks = dataGridViewPols->Rows[rowIndex]->Cells[4]->Value != nullptr ? dataGridViewPols->Rows[rowIndex]->Cells[4]->Value->ToString()->Trim() : "3 3 3 3 3 3 3 3 3";
-		System::String^ dopinf = dataGridViewPols->Rows[rowIndex]->Cells[5]->Value != nullptr ? dataGridViewPols->Rows[rowIndex]->Cells[5]->Value->ToString()->Trim() : " - ";
+		System::String^ dopinf = dataGridViewPols->Rows[rowIndex]->Cells[5]->Value != nullptr ? dataGridViewPols->Rows[rowIndex]->Cells[5]->Value->ToString()->Trim() : " -\n -\n -\n ";
 
 		array<String^>^ dopdop = dopinf->Split('\n');
-		System::String^ adres = dopdop[0]->Trim();
-		System::String^ phone = dopdop[1]->Trim();
-		System::String^ mail = dopdop[2]->Trim();
+		System::String^ adres = "-";
+		System::String^ phone = "-";
+		System::String^ mail = "-";
+		if (dopdop->Length >= 3) {
+			adres = dopdop[0];
+			phone = dopdop[1];
+			mail = dopdop[2];
+		}
+		else if (dopdop->Length == 2) {
+			adres = dopdop[0];
+			phone = dopdop[1];
+		}
+		else adres = dopdop[0];
 		
-		return id + "\t" + fio + "\t" + age + "\t" + group + "\t" + marks + "\t" + adres + "\t" + phone + "\t" + mail;
+		
+		return fio + "\t" + age + "\t" + group + "\t" + marks + "\t" + adres->Trim() + "\t" + phone->Trim() + "\t" + mail->Trim();
+}
+private: System::Void help_button_Click(System::Object^ sender, System::EventArgs^ e) {
+	
+	System::String^ helpMessage =
+		"1 Ч ћатематический анализ\n" +
+		"2 Ч ‘изика\n" +
+		"3 Ч ѕрограммирование\n" +
+		"4 Ч Ёкологи€\n" +
+		"5 Ч ќ»“\n" +
+		"6 Ч »стори€\n" +
+		"7 Ч ‘изкультура\n" +
+		"8 Ч ƒискретна€ математика\n" +
+		"9 Ч јнглийский €зык";
+
+	// ѕоказываем подсказку пр€мо под кнопкой справки на 15 секунд
+	this->toolTip1->Show(helpMessage, help_button, 0, help_button->Height, 15000);
 }
 };
 }
