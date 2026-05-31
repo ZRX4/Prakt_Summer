@@ -123,6 +123,7 @@
     <ClCompile Include="FilterPoisk.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Pols_main_form.cpp" />
+    <ClCompile Include="password.cpp" />
     <ClCompile Include="Student.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -132,11 +133,17 @@
     <ClInclude Include="FilterForm.h">
       <FileType>CppForm</FileType>
     </ClInclude>
+    <ClInclude Include="Login_form.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
     <ClInclude Include="Pols_main_form.h">
       <FileType>CppForm</FileType>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Login_form.resx">
+      <DependentUpon>Login_form.h</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.h</DependentUpon>
       <SubType>Designer</SubType>

@@ -1,5 +1,6 @@
 #pragma once
 #include "Pols_main_form.h"
+#include "Login_form.h"
 
 namespace SUMMERprak {
 
@@ -42,8 +43,8 @@ namespace SUMMERprak {
 	protected:
 
 	private: System::Windows::Forms::Label^ label_main;
-	private: System::Windows::Forms::MenuStrip^ menuStrip1;
-	private: System::Windows::Forms::ToolStripMenuItem^ mainToolStripMenuItem;
+
+
 	private: System::Windows::Forms::ToolStripMenuItem^ toolStripMenuItem1;
 	private: System::Windows::Forms::ToolStripSeparator^ toolStripSeparator1;
 	private: System::Windows::Forms::ToolStripSeparator^ toolStripSeparator2;
@@ -66,13 +67,10 @@ namespace SUMMERprak {
 			this->admin_main_button = (gcnew System::Windows::Forms::Button());
 			this->pols_main_button = (gcnew System::Windows::Forms::Button());
 			this->label_main = (gcnew System::Windows::Forms::Label());
-			this->menuStrip1 = (gcnew System::Windows::Forms::MenuStrip());
-			this->mainToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->toolStripMenuItem1 = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->toolStripSeparator1 = (gcnew System::Windows::Forms::ToolStripSeparator());
 			this->toolStripSeparator2 = (gcnew System::Windows::Forms::ToolStripSeparator());
 			this->toolStripSeparator3 = (gcnew System::Windows::Forms::ToolStripSeparator());
-			this->menuStrip1->SuspendLayout();
 			this->SuspendLayout();
 			// 
 			// admin_main_button
@@ -104,38 +102,37 @@ namespace SUMMERprak {
 			this->label_main->TabIndex = 2;
 			this->label_main->Text = L"АСУ \"Успеваемость\"";
 			// 
-			// menuStrip1
+			// toolStripMenuItem1
 			// 
-			this->menuStrip1->GripMargin = System::Windows::Forms::Padding(2, 2, 0, 2);
-			this->menuStrip1->ImageScalingSize = System::Drawing::Size(24, 24);
-			this->menuStrip1->Items->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(1) { this->mainToolStripMenuItem });
-			this->menuStrip1->Location = System::Drawing::Point(0, 0);
-			this->menuStrip1->Name = L"menuStrip1";
-			this->menuStrip1->Size = System::Drawing::Size(548, 33);
-			this->menuStrip1->TabIndex = 3;
-			this->menuStrip1->Text = L"menuStrip1";
+			this->toolStripMenuItem1->Name = L"toolStripMenuItem1";
+			this->toolStripMenuItem1->Size = System::Drawing::Size(32, 19);
 			// 
-			// mainToolStripMenuItem
+			// toolStripSeparator1
 			// 
-			this->mainToolStripMenuItem->Name = L"mainToolStripMenuItem";
-			this->mainToolStripMenuItem->Size = System::Drawing::Size(67, 29);
-			this->mainToolStripMenuItem->Text = L"main";
-			
+			this->toolStripSeparator1->Name = L"toolStripSeparator1";
+			this->toolStripSeparator1->Size = System::Drawing::Size(6, 6);
+			// 
+			// toolStripSeparator2
+			// 
+			this->toolStripSeparator2->Name = L"toolStripSeparator2";
+			this->toolStripSeparator2->Size = System::Drawing::Size(6, 6);
+			// 
+			// toolStripSeparator3
+			// 
+			this->toolStripSeparator3->Name = L"toolStripSeparator3";
+			this->toolStripSeparator3->Size = System::Drawing::Size(6, 6);
 			// 
 			// MainForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(9, 20);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->ClientSize = System::Drawing::Size(548, 384);
+			this->BackColor = System::Drawing::Color::PeachPuff;
+			this->ClientSize = System::Drawing::Size(545, 395);
 			this->Controls->Add(this->label_main);
 			this->Controls->Add(this->pols_main_button);
 			this->Controls->Add(this->admin_main_button);
-			this->Controls->Add(this->menuStrip1);
-			this->MainMenuStrip = this->menuStrip1;
 			this->Name = L"MainForm";
 			this->Text = L"Main";
-			this->menuStrip1->ResumeLayout(false);
-			this->menuStrip1->PerformLayout();
 			this->ResumeLayout(false);
 			this->PerformLayout();
 
@@ -152,8 +149,7 @@ namespace SUMMERprak {
 	}
 
 	private: System::Void admin_main_button_Click(System::Object^ sender, System::EventArgs^ e) {
-		Pols_main_form^ qwe = gcnew Pols_main_form(1);
-		
+		Login_form^ qwe = gcnew Login_form();
 		qwe->Show();
 		this->Hide();
 

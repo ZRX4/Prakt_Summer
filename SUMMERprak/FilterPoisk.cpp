@@ -59,16 +59,24 @@ namespace SUMMERprak {
 
 
 		try {
-			if (this->text_box_matanalis->Text != "")Convert::ToInt32(this->text_box_matanalis->Text);
-			if (this->text_box_phisic->Text != "")Convert::ToInt32(this->text_box_phisic->Text);
-			if (this->text_box_proga->Text != "")Convert::ToInt32(this->text_box_proga->Text);
-			if (this->text_box_ecolog->Text != "")Convert::ToInt32(this->text_box_ecolog->Text);
-			if (this->text_box_OIT->Text != "")Convert::ToInt32(this->text_box_OIT->Text);
-			if (this->text_box_history->Text != "")Convert::ToInt32(this->text_box_history->Text);
-			if (this->text_box_fisra->Text != "")Convert::ToInt32(this->text_box_fisra->Text);
-			if (this->text_box_diskret->Text != "")Convert::ToInt32(this->text_box_diskret->Text);
-			if (this->text_box_angl->Text != "")Convert::ToInt32(this->text_box_angl->Text);
+			array<int>^ mrty=gcnew array<int>(9);
 
+			if (this->text_box_matanalis->Text != "")mrty[0]=Convert::ToInt32(this->text_box_matanalis->Text);
+			if (this->text_box_phisic->Text != "")mrty[1] = Convert::ToInt32(this->text_box_phisic->Text);
+			if (this->text_box_proga->Text != "")mrty[2] = Convert::ToInt32(this->text_box_proga->Text);
+			if (this->text_box_ecolog->Text != "")mrty[3] = Convert::ToInt32(this->text_box_ecolog->Text);
+			if (this->text_box_OIT->Text != "")mrty[4] = Convert::ToInt32(this->text_box_OIT->Text);
+			if (this->text_box_history->Text != "")mrty[5] = Convert::ToInt32(this->text_box_history->Text);
+			if (this->text_box_fisra->Text != "")mrty[6] = Convert::ToInt32(this->text_box_fisra->Text);
+			if (this->text_box_diskret->Text != "")mrty[7] = Convert::ToInt32(this->text_box_diskret->Text);
+			if (this->text_box_angl->Text != "")mrty[8] = Convert::ToInt32(this->text_box_angl->Text);
+
+			for (int i = 0; i < 9; i++) {
+				if (mrty[i] > 5 || mrty[i] < 0) {
+					MessageBox::Show("Ошибка! Вводите оценки в пределах от 0 до 5", "Неверный формат");
+					this->mark2_radio_button->Checked = false;
+				}
+			}
 
 		}
 		catch (Exception^ ex) {
@@ -82,10 +90,87 @@ namespace SUMMERprak {
 
 
 	}
+
+	void FilterForm::FilterForm_Load(System::Object^ sender, System::EventArgs^ e) {
+		if (this->rezim == 0) {
+			this->text_box_id->Visible=true;
+			this->text_box_fio->Visible = true;
+			this->text_box_group->Visible=true;
+			this->text_box_adres->Visible=true;
+			this->text_box_mail->Visible=true;
+			this->text_box_number->Visible=true;
+			this->text_box_ot1->Visible=true;
+			this->text_box_do1->Visible=true;
+			this->text_box_ot2->Visible=true;
+			this->text_box_do2->Visible=true;
+			this->text_box_matanalis->Visible=true;
+			this->text_box_phisic->Visible=true;
+			this->text_box_proga->Visible=true;
+			this->text_box_ecolog->Visible=true;
+			this->text_box_OIT->Visible=true;
+			this->text_box_history->Visible=true;
+			this->text_box_fisra->Visible=true;
+			this->text_box_diskret->Visible=true;
+			this->text_box_angl->Visible=true;
+			this->id_check_box->Visible = true;
+			this->fio_check_box->Visible=true;
+			this->group_check_box->Visible=true;
+			this->adres_check_box->Visible=true;
+			this->mail_check_box->Visible=true;
+			this->number_check_box->Visible=true;
+			this->age_check_box->Visible=true;
+			this->mark1_radio_button->Visible=true;
+			this->mark2_radio_button->Visible=true;
+			this->button_clear->Visible = true;
+			this->button_parametr->Visible = true;
+			
+			this->label_do1->Visible = true;
+			this->label_ot1->Visible = true;
+			this->label_do2->Visible = true;
+			this->label_ot2->Visible = true;
+			
+		}
+		
+		if (this->rezim == 2) {
+			this->text_box_id->Visible = true;
+			this->text_box_fio->Visible = true;
+			this->text_box_group->Visible = true;
+			this->text_box_adres->Visible = true;
+			this->text_box_mail->Visible = true;
+			this->text_box_number->Visible = true;
+			this->text_box_ot1->Visible = true;
+			this->text_box_do1->Visible = true;
+			this->text_box_ot2->Visible = true;
+			this->text_box_do2->Visible = true;
+			this->text_box_matanalis->Visible = true;
+			this->text_box_phisic->Visible = true;
+			this->text_box_proga->Visible = true;
+			this->text_box_ecolog->Visible = true;
+			this->text_box_OIT->Visible = true;
+			this->text_box_history->Visible = true;
+			this->text_box_fisra->Visible = true;
+			this->text_box_diskret->Visible = true;
+			this->text_box_angl->Visible = true;
+			this->id_check_box->Visible = true;
+			this->fio_check_box->Visible = true;
+			this->group_check_box->Visible = true;
+			this->adres_check_box->Visible = true;
+			this->mail_check_box->Visible = true;
+			this->number_check_box->Visible = true;
+			this->age_check_box->Visible = true;
+			this->mark1_radio_button->Visible = true;
+			this->mark2_radio_button->Visible = true;
+			this->button_clear->Visible = true;
+			this->button_parametr->Visible = true;
+			
+		}
+
+	}
+
 	void FilterForm::button_parametr_Click(System::Object^ sender, System::EventArgs^ e) {
 		proverka();
 
-        String^ filePath = "test.txt";
+        String^ filePath = "database.txt";
         if (!System::IO::File::Exists(filePath)) {
             MessageBox::Show("Файл с данными не найден!", "Ошибка");
             return;
@@ -126,7 +211,7 @@ namespace SUMMERprak {
 						else age2 = Convert::ToInt32(this->text_box_do1->Text);
 						if (!(Convert::ToInt32(fields[2]) >= age1 && Convert::ToInt32(fields[2]) <= age2)) ok = 0;
 						
-						/*доделать защиту на поиск по оценке */
+						
 					}
 					if (this->mark1_radio_button->Checked) {
 
@@ -163,7 +248,7 @@ namespace SUMMERprak {
 						ssilk->dataGridViewPols->Rows[row]->Cells[1]->Value = fields[1];
 						ssilk->dataGridViewPols->Rows[row]->Cells[2]->Value = fields[2];
 						ssilk->dataGridViewPols->Rows[row]->Cells[3]->Value = fields[3];
-						ssilk->dataGridViewPols->Rows[row]->Cells[4]->Value = fields[4];
+						ssilk->dataGridViewPols->Rows[row]->Cells[4]->Value = "  "+fields[4];
 						ssilk->dataGridViewPols->Rows[row]->Cells[5]->Value = nummail;
 					}
 				}

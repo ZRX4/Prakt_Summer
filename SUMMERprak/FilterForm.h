@@ -20,13 +20,21 @@ namespace SUMMERprak {
 	private: void proverka();
 	
 	private: Pols_main_form^ ssilk;
-	
+
+
+
+
+
+	private: int rezim;
+
 	public:
-		FilterForm(Pols_main_form^ parentForm)
+		
+		public:
+		FilterForm(Pols_main_form^ parentForm,int mode)
 		{
 			InitializeComponent();
 			ssilk = parentForm;
-			
+			this->rezim = mode;
 			
 		}
 	
@@ -114,14 +122,6 @@ namespace SUMMERprak {
 	private: System::Windows::Forms::RadioButton^ mark2_radio_button;
 
 	private: System::Windows::Forms::RadioButton^ mark1_radio_button;
-
-
-
-
-
-
-
-
 
 
 	protected:
@@ -424,6 +424,7 @@ namespace SUMMERprak {
 			this->mark1_radio_button->UseVisualStyleBackColor = true;
 			this->AutoScaleDimensions = System::Drawing::SizeF(9, 20);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
+			this->BackColor = System::Drawing::Color::PeachPuff;
 			this->ClientSize = System::Drawing::Size(851, 694);
 			this->Controls->Add(this->mark1_radio_button);
 			this->Controls->Add(this->mark2_radio_button);
@@ -470,6 +471,7 @@ namespace SUMMERprak {
 			this->Controls->Add(this->id_check_box);
 			this->Name = L"FilterForm";
 			this->Text = L"Фильтры для поиска";
+			this->Load += gcnew System::EventHandler(this, &FilterForm::FilterForm_Load);
 			this->ResumeLayout(false);
 			this->PerformLayout();
 
@@ -482,6 +484,16 @@ namespace SUMMERprak {
 
 	public: System::Void button_parametr_Click(System::Object^ sender, System::EventArgs^ e);
 
+
+	private: System::Void FilterForm_Load(System::Object^ sender, System::EventArgs^ e);
+
+	private: System::Void FilterForm::btnCancel_Click(System::Object^ sender, System::EventArgs^ e) {
+			   // Обращаемся к сохраненному указателю главной формы и просим её сбросить фильтры
+			   button_parametr->PerformClick();	
+
+			   // Закрываем текущую форму фильтров
+			   this->Close();
+		   }
 
 };
 } 
