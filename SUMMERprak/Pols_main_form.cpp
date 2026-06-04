@@ -273,16 +273,39 @@ namespace SUMMERprak {
                 "Неверный формат");
             return 0;
         }
+        //проверка группы 
+
+        try {
+            if (provprov[3]->Contains("\n")) {
+                MessageBox::Show("Группа не должны содержать сивола новой строки",
+                    "Неверный формат");
+                return 0;
+            }
+        }
+        catch (Exception^)
+        {
+            MessageBox::Show("Ошибка!",
+                "Неверный формат");
+            return 0;
+        }
+
 
         // Проверка оценок (поле 4)
         try
         {
+           
             array<String^>^ marki = provprov[4]->Split(
                 gcnew array<wchar_t>{' '}, StringSplitOptions::RemoveEmptyEntries);
 
             if (marki->Length != 9)
             {
                 MessageBox::Show("Оценки должны содержать ровно 9 цифр от 0 до 5!",
+                    "Неверный формат");
+                return 0;
+            }
+
+            if (provprov[4]->Contains("\n")) {
+                MessageBox::Show("Оценки не должны содержать сивола новой строки",
                     "Неверный формат");
                 return 0;
             }
@@ -308,9 +331,9 @@ namespace SUMMERprak {
         // Проверка ФИО на отсутствие цифр (поле 1)
         for (int i = 0; i < provprov[1]->Length; i++)
         {
-            if (Char::IsDigit(provprov[1][i]))
+            if (Char::IsDigit(provprov[1][i])|| provprov[1][i]=='\n')
             {
-                MessageBox::Show("Ошибка! ФИО не должно содержать цифр.",
+                MessageBox::Show("Ошибка! ФИО не должно содержать цифр и знака переноса строки.",
                     "Неверный формат");
                 return 0;
             }
@@ -331,10 +354,16 @@ namespace SUMMERprak {
         for (int i = 0; i < dataGridViewPols->Rows->Count; i++)
         {
             if (dataGridViewPols->Rows[i]->IsNewRow) continue;
+
             
+            System::Object^ fioCellCheck = dataGridViewPols->Rows[i]->Cells[1]->Value;
+            if (fioCellCheck == nullptr || String::IsNullOrWhiteSpace(fioCellCheck->ToString())) {
+                continue; // Строка пустая, полностью игнорируем её и не отправляем на проверку ошибок
+            }
+
             // Строка считается новой, если ID пуст
             bool isNew = (dataGridViewPols->Rows[i]->Cells[0]->Value == nullptr ||
-                String::IsNullOrWhiteSpace(dataGridViewPols->Rows[i]->Cells[0]->ToString()));
+                String::IsNullOrWhiteSpace(dataGridViewPols->Rows[i]->Cells[0]->Value->ToString()));
 
             // Строка изменена, если её ID есть в списке modifiedIds
             bool isModified = false;
@@ -342,12 +371,10 @@ namespace SUMMERprak {
                 isModified = (modifiedIds != nullptr && modifiedIds->Contains(
                     dataGridViewPols->Rows[i]->Cells[0]->Value->ToString()->Trim()));
             }
-            
-          
 
             if (isNew || isModified)
             {
-                String^ line =  "0" + "\t" + BuildStringFromRow(i);
+                String^ line = "0" + "\t" + BuildStringFromRow(i);
                 if (!proverka_data(line))
                 {
                     // Ошибка уже показана в proverka_data, просто выходим
@@ -356,10 +383,10 @@ namespace SUMMERprak {
             }
         }
 
-        
+
         bool hasNewRows = false;
 
-        // 2.1. Генерация ID для новых строк и запись в конец файла
+        // ---------- 2.1. Генерация ID для новых строк и запись в конец файла ----------
         System::IO::StreamWriter^ appendWriter = nullptr;
         try
         {
@@ -368,6 +395,12 @@ namespace SUMMERprak {
             for (int i = 0; i < dataGridViewPols->Rows->Count; i++)
             {
                 if (dataGridViewPols->Rows[i]->IsNewRow) continue;
+
+                
+                System::Object^ fioCell = dataGridViewPols->Rows[i]->Cells[1]->Value;
+                if (fioCell == nullptr || System::String::IsNullOrWhiteSpace(fioCell->ToString())) {
+                    continue; // Строка пустая, мы её НЕ записываем в файл и НЕ ругаемся на ошибки
+                }
 
                 if (dataGridViewPols->Rows[i]->Cells[0]->Value == nullptr ||
                     String::IsNullOrWhiteSpace(dataGridViewPols->Rows[i]->Cells[0]->Value->ToString()))
@@ -378,7 +411,7 @@ namespace SUMMERprak {
                     dataGridViewPols->Rows[i]->Cells[0]->Value = newId.ToString();
                     appendWriter = gcnew System::IO::StreamWriter(sourcePath, true, System::Text::Encoding::GetEncoding(1251));
                     String^ newLine = BuildStringFromRow(i);
-                    appendWriter->WriteLine(newId.ToString()+"\t" + newLine);
+                    appendWriter->WriteLine(newId.ToString() + "\t" + newLine);
                     hasNewRows = true;
                 }
             }
@@ -389,12 +422,11 @@ namespace SUMMERprak {
                 appendWriter->Close();
         }
 
-        // 2.2. Обновление изменённых строк
+        // ---------- 2.2. Обновление изменённых строк ----------
         if (modifiedIds != nullptr && modifiedIds->Count > 0)
         {
-            
             System::IO::StreamReader^ reader = nullptr;
-            System::IO::StreamWriter ^ tempWriter = nullptr;
+            System::IO::StreamWriter^ tempWriter = nullptr;
             try
             {
                 reader = gcnew System::IO::StreamReader(sourcePath, System::Text::Encoding::GetEncoding(1251));
@@ -410,20 +442,24 @@ namespace SUMMERprak {
 
                     if (modifiedIds->Contains(fileId))
                     {
-                        // Ищем строку с таким ID в DataGridView
+                        
                         bool found = false;
                         for (int i = 0; i < dataGridViewPols->Rows->Count; i++)
                         {
                             if (dataGridViewPols->Rows[i]->IsNewRow) continue;
+
+                            
+                            if (dataGridViewPols->Rows[i]->Cells[0]->Value == nullptr) continue;
+
                             String^ gridId = dataGridViewPols->Rows[i]->Cells[0]->Value->ToString()->Trim();
                             if (gridId == fileId)
                             {
-                                tempWriter->WriteLine(gridId+"\t"+BuildStringFromRow(i));
+                                tempWriter->WriteLine(gridId + "\t" + BuildStringFromRow(i));
                                 found = true;
                                 break;
                             }
                         }
-                        if (!found) // На всякий случай, если вдруг исчезла
+                        if (!found) 
                             tempWriter->WriteLine(line);
                     }
                     else
@@ -449,5 +485,6 @@ namespace SUMMERprak {
         if (hasNewRows || (modifiedIds != nullptr && modifiedIds->Count == 0))
             MessageBox::Show("Изменения успешно сохранены в БД!", "Успех");
     }
+
 }
 

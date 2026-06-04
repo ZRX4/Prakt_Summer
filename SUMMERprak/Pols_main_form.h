@@ -301,6 +301,7 @@ namespace SUMMERprak {
 			// 
 			// help_button
 			// 
+			this->help_button->Anchor = static_cast<System::Windows::Forms::AnchorStyles>((System::Windows::Forms::AnchorStyles::Top | System::Windows::Forms::AnchorStyles::Right));
 			this->help_button->BackColor = System::Drawing::Color::PeachPuff;
 			this->help_button->FlatAppearance->BorderSize = 0;
 			this->help_button->FlatStyle = System::Windows::Forms::FlatStyle::Flat;
@@ -328,9 +329,8 @@ namespace SUMMERprak {
 			this->Controls->Add(this->menuStrip2);
 			this->Controls->Add(this->dataGridViewPols);
 			this->ForeColor = System::Drawing::SystemColors::ActiveCaptionText;
-			this->MaximizeBox = false;
-			this->MinimizeBox = false;
 			this->Name = L"Pols_main_form";
+			this->StartPosition = System::Windows::Forms::FormStartPosition::CenterScreen;
 			this->Text = L"База Данных (пользовательский просмотр)";
 			this->Load += gcnew System::EventHandler(this, &Pols_main_form::Pols_main_form_Load);
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridViewPols))->EndInit();

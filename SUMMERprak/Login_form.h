@@ -121,10 +121,12 @@ namespace SUMMERprak {
 			this->Controls->Add(this->pass_label);
 			this->Controls->Add(this->pass_text);
 			this->Controls->Add(this->menuStrip1);
+			this->FormBorderStyle = System::Windows::Forms::FormBorderStyle::FixedSingle;
 			this->MainMenuStrip = this->menuStrip1;
 			this->MaximizeBox = false;
 			this->MinimizeBox = false;
 			this->Name = L"Login_form";
+			this->StartPosition = System::Windows::Forms::FormStartPosition::CenterScreen;
 			this->Text = L"¬вод парол€";
 			this->menuStrip1->ResumeLayout(false);
 			this->menuStrip1->PerformLayout();

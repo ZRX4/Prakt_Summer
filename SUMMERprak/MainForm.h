@@ -1,7 +1,7 @@
 #pragma once
 #include "Pols_main_form.h"
 #include "Login_form.h"
-
+#include "Game.h"
 namespace SUMMERprak {
 
 	using namespace System;
@@ -49,6 +49,8 @@ namespace SUMMERprak {
 	private: System::Windows::Forms::ToolStripSeparator^ toolStripSeparator1;
 	private: System::Windows::Forms::ToolStripSeparator^ toolStripSeparator2;
 	private: System::Windows::Forms::ToolStripSeparator^ toolStripSeparator3;
+	private: System::Windows::Forms::MenuStrip^ menuStrip1;
+	private: System::Windows::Forms::ToolStripMenuItem^ gameToolStripMenuItem;
 
 
 	private:
@@ -71,6 +73,9 @@ namespace SUMMERprak {
 			this->toolStripSeparator1 = (gcnew System::Windows::Forms::ToolStripSeparator());
 			this->toolStripSeparator2 = (gcnew System::Windows::Forms::ToolStripSeparator());
 			this->toolStripSeparator3 = (gcnew System::Windows::Forms::ToolStripSeparator());
+			this->menuStrip1 = (gcnew System::Windows::Forms::MenuStrip());
+			this->gameToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
+			this->menuStrip1->SuspendLayout();
 			this->SuspendLayout();
 			// 
 			// admin_main_button
@@ -122,6 +127,25 @@ namespace SUMMERprak {
 			this->toolStripSeparator3->Name = L"toolStripSeparator3";
 			this->toolStripSeparator3->Size = System::Drawing::Size(6, 6);
 			// 
+			// menuStrip1
+			// 
+			this->menuStrip1->BackColor = System::Drawing::SystemColors::Info;
+			this->menuStrip1->GripMargin = System::Windows::Forms::Padding(2, 2, 0, 2);
+			this->menuStrip1->ImageScalingSize = System::Drawing::Size(24, 24);
+			this->menuStrip1->Items->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(1) { this->gameToolStripMenuItem });
+			this->menuStrip1->Location = System::Drawing::Point(0, 0);
+			this->menuStrip1->Name = L"menuStrip1";
+			this->menuStrip1->Size = System::Drawing::Size(545, 33);
+			this->menuStrip1->TabIndex = 3;
+			this->menuStrip1->Text = L"menuStrip1";
+			// 
+			// gameToolStripMenuItem
+			// 
+			this->gameToolStripMenuItem->Name = L"gameToolStripMenuItem";
+			this->gameToolStripMenuItem->Size = System::Drawing::Size(73, 29);
+			this->gameToolStripMenuItem->Text = L"game";
+			this->gameToolStripMenuItem->Click += gcnew System::EventHandler(this, &MainForm::gameToolStripMenuItem_Click);
+			// 
 			// MainForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(9, 20);
@@ -131,10 +155,16 @@ namespace SUMMERprak {
 			this->Controls->Add(this->label_main);
 			this->Controls->Add(this->pols_main_button);
 			this->Controls->Add(this->admin_main_button);
+			this->Controls->Add(this->menuStrip1);
+			this->FormBorderStyle = System::Windows::Forms::FormBorderStyle::FixedSingle;
+			this->MainMenuStrip = this->menuStrip1;
 			this->MaximizeBox = false;
 			this->MinimizeBox = false;
 			this->Name = L"MainForm";
+			this->StartPosition = System::Windows::Forms::FormStartPosition::CenterScreen;
 			this->Text = L"Main";
+			this->menuStrip1->ResumeLayout(false);
+			this->menuStrip1->PerformLayout();
 			this->ResumeLayout(false);
 			this->PerformLayout();
 
@@ -156,6 +186,11 @@ namespace SUMMERprak {
 		this->Hide();
 
 	}
+private: System::Void gameToolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e) {
+	Game^ tyu = gcnew Game();
+	tyu->Show();
+	this->Hide();
+}
 };
 
 }

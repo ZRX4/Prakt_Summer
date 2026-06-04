@@ -601,6 +601,7 @@ namespace SUMMERprak {
 			this->Controls->Add(this->group_check_box);
 			this->Controls->Add(this->text_box_id);
 			this->Controls->Add(this->id_check_box);
+			this->FormBorderStyle = System::Windows::Forms::FormBorderStyle::FixedSingle;
 			this->MaximizeBox = false;
 			this->MinimizeBox = false;
 			this->Name = L"FilterForm";
