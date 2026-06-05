@@ -3,12 +3,17 @@
 #include "FilterForm.h"
 #include "Login_form.h"
 #include"Game.h"
+#include "windows.h"
+#pragma comment(lib, "User32.lib")
 
 using namespace System;
 using namespace System::Windows::Forms;
 
 [STAThreadAttribute]
 int main(array<String^>^ args) {
+
+    SetProcessDPIAware();
+
     Application::EnableVisualStyles();
     Application::SetCompatibleTextRenderingDefault(false);
 
