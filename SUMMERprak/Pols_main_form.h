@@ -25,15 +25,21 @@ namespace SUMMERprak {
 	private: System::Windows::Forms::TextBox^ delet_text_box;
 
 	private: System::Windows::Forms::Label^ id_delet_label;
+
+
+
+
+
+
+	private: System::Windows::Forms::Button^ Save_data_button;
+	private: System::Windows::Forms::Button^ help_button;
+	private: System::Windows::Forms::ToolTip^ toolTip1;
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ id_row;
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ fio_row;
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ age_row;
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ group_row;
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ marks_row;
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ dopinfo_row;
-	private: System::Windows::Forms::Button^ Save_data_button;
-	private: System::Windows::Forms::Button^ help_button;
-	private: System::Windows::Forms::ToolTip^ toolTip1;
 
 
 
@@ -112,12 +118,6 @@ namespace SUMMERprak {
 			this->components = (gcnew System::ComponentModel::Container());
 			System::Windows::Forms::DataGridViewCellStyle^ dataGridViewCellStyle1 = (gcnew System::Windows::Forms::DataGridViewCellStyle());
 			this->dataGridViewPols = (gcnew System::Windows::Forms::DataGridView());
-			this->id_row = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
-			this->fio_row = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
-			this->age_row = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
-			this->group_row = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
-			this->marks_row = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
-			this->dopinfo_row = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->menu_pols_main = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->toolStripMenuItem1 = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->mainMenuToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
@@ -130,6 +130,12 @@ namespace SUMMERprak {
 			this->Save_data_button = (gcnew System::Windows::Forms::Button());
 			this->help_button = (gcnew System::Windows::Forms::Button());
 			this->toolTip1 = (gcnew System::Windows::Forms::ToolTip(this->components));
+			this->id_row = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->fio_row = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->age_row = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->group_row = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->marks_row = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
+			this->dopinfo_row = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridViewPols))->BeginInit();
 			this->menuStrip2->SuspendLayout();
 			this->SuspendLayout();
@@ -165,54 +171,6 @@ namespace SUMMERprak {
 			this->dataGridViewPols->Size = System::Drawing::Size(1306, 465);
 			this->dataGridViewPols->TabIndex = 0;
 			this->dataGridViewPols->CellValueChanged += gcnew System::Windows::Forms::DataGridViewCellEventHandler(this, &Pols_main_form::dataGridViewPols_CellValueChanged);
-			// 
-			// id_row
-			// 
-			this->id_row->HeaderText = L"id";
-			this->id_row->MinimumWidth = 8;
-			this->id_row->Name = L"id_row";
-			this->id_row->ReadOnly = true;
-			this->id_row->Width = 150;
-			// 
-			// fio_row
-			// 
-			this->fio_row->HeaderText = L"ФИО";
-			this->fio_row->MinimumWidth = 8;
-			this->fio_row->Name = L"fio_row";
-			this->fio_row->ReadOnly = true;
-			this->fio_row->Width = 150;
-			// 
-			// age_row
-			// 
-			this->age_row->HeaderText = L"Возраст";
-			this->age_row->MinimumWidth = 8;
-			this->age_row->Name = L"age_row";
-			this->age_row->ReadOnly = true;
-			this->age_row->Width = 150;
-			// 
-			// group_row
-			// 
-			this->group_row->HeaderText = L"Группа";
-			this->group_row->MinimumWidth = 8;
-			this->group_row->Name = L"group_row";
-			this->group_row->ReadOnly = true;
-			this->group_row->Width = 150;
-			// 
-			// marks_row
-			// 
-			this->marks_row->HeaderText = L"мат физ прог эко ОИТ истор физра дискр англ";
-			this->marks_row->MinimumWidth = 8;
-			this->marks_row->Name = L"marks_row";
-			this->marks_row->ReadOnly = true;
-			this->marks_row->Width = 150;
-			// 
-			// dopinfo_row
-			// 
-			this->dopinfo_row->HeaderText = L"Дополнительная информация";
-			this->dopinfo_row->MinimumWidth = 8;
-			this->dopinfo_row->Name = L"dopinfo_row";
-			this->dopinfo_row->ReadOnly = true;
-			this->dopinfo_row->Width = 253;
 			// 
 			// menu_pols_main
 			// 
@@ -314,6 +272,54 @@ namespace SUMMERprak {
 			this->help_button->Text = L"\?";
 			this->help_button->UseVisualStyleBackColor = false;
 			this->help_button->Click += gcnew System::EventHandler(this, &Pols_main_form::help_button_Click);
+			// 
+			// id_row
+			// 
+			this->id_row->HeaderText = L"id";
+			this->id_row->MinimumWidth = 8;
+			this->id_row->Name = L"id_row";
+			this->id_row->ReadOnly = true;
+			this->id_row->Width = 150;
+			// 
+			// fio_row
+			// 
+			this->fio_row->HeaderText = L"ФИО";
+			this->fio_row->MinimumWidth = 8;
+			this->fio_row->Name = L"fio_row";
+			this->fio_row->ReadOnly = true;
+			this->fio_row->Width = 150;
+			// 
+			// age_row
+			// 
+			this->age_row->HeaderText = L"Год рождения";
+			this->age_row->MinimumWidth = 8;
+			this->age_row->Name = L"age_row";
+			this->age_row->ReadOnly = true;
+			this->age_row->Width = 150;
+			// 
+			// group_row
+			// 
+			this->group_row->HeaderText = L"Группа";
+			this->group_row->MinimumWidth = 8;
+			this->group_row->Name = L"group_row";
+			this->group_row->ReadOnly = true;
+			this->group_row->Width = 150;
+			// 
+			// marks_row
+			// 
+			this->marks_row->HeaderText = L"мат физ прог эко ОИТ истор физра дискр англ";
+			this->marks_row->MinimumWidth = 8;
+			this->marks_row->Name = L"marks_row";
+			this->marks_row->ReadOnly = true;
+			this->marks_row->Width = 150;
+			// 
+			// dopinfo_row
+			// 
+			this->dopinfo_row->HeaderText = L"Дополнительная информация";
+			this->dopinfo_row->MinimumWidth = 8;
+			this->dopinfo_row->Name = L"dopinfo_row";
+			this->dopinfo_row->ReadOnly = true;
+			this->dopinfo_row->Width = 253;
 			// 
 			// Pols_main_form
 			// 
