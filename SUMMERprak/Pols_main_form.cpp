@@ -20,29 +20,28 @@ namespace SUMMERprak {
         GraphicsPath^ roundPath = gcnew GraphicsPath();
         roundPath->AddEllipse(0, 0, help_button->Width, help_button->Height);
 
-        // Обрезаем кнопку по этому пути
+       
         help_button->Region = gcnew System::Drawing::Region(roundPath);
 
         this->dataGridViewPols->ColumnHeadersDefaultCellStyle->WrapMode = System::Windows::Forms::DataGridViewTriState::True;
         
-        // 2. Отключаем авто-высоту шапки и задаем её вручную (например, 45 пикселей, чтобы влезло две строки)
+        
         this->dataGridViewPols->ColumnHeadersHeightSizeMode = System::Windows::Forms::DataGridViewColumnHeadersHeightSizeMode::DisableResizing;
         this->dataGridViewPols->ColumnHeadersHeight = 45;
 
-        // 2. Включаем автоматическое растяжение столбцов СТРОГО по ширине текста в шапке
         this->dataGridViewPols->AutoSizeColumnsMode = System::Windows::Forms::DataGridViewAutoSizeColumnsMode::ColumnHeader;
         this->dataGridViewPols->AutoSizeColumnsMode = System::Windows::Forms::DataGridViewAutoSizeColumnsMode::Fill;
         this->dataGridViewPols->Columns[1]->AutoSizeMode = System::Windows::Forms::DataGridViewAutoSizeColumnMode::AllCells;
         this->dataGridViewPols->Columns[4]->HeaderText = "Оценки\n1 2 3 4 5 6 7 8 9";
 
 
-        // 5. Настраиваем ширину столбца оценок, чтобы цифры не переносились хаотично
+      
         this->dataGridViewPols->Columns[4]->AutoSizeMode = System::Windows::Forms::DataGridViewAutoSizeColumnMode::None;
-        this->dataGridViewPols->Columns[4]->Width = 140; // Элегантно вместит все 9 цифр с пробелами в один ряд
+        this->dataGridViewPols->Columns[4]->Width = 140; 
 
 
         if (this->status == 1) {
-            this->dataGridViewPols->ReadOnly = false;              // Разрешаем редактировать ячейки
+            this->dataGridViewPols->ReadOnly = false;              
             this->dataGridViewPols->AllowUserToAddRows = true;
             delet_pols_button->Visible = true;
             this->dataGridViewPols->Columns[0]->ReadOnly = true;
@@ -52,7 +51,7 @@ namespace SUMMERprak {
             this->Text = "База данных в пежиме администратора";
         }
         else {
-            this->dataGridViewPols->ReadOnly = true;               // Запрещаем любое редактирование
+            this->dataGridViewPols->ReadOnly = true;               
             this->dataGridViewPols->AllowUserToAddRows = false;
             delet_pols_button->Visible = false;
 
@@ -104,7 +103,7 @@ namespace SUMMERprak {
             MessageBox::Show("Введите числовые id!", "Ошибка");
             return;
         }
-        System::String^ sourcePath = "database.txt";      // Ваш исходный файл
+        System::String^ sourcePath = "database.txt";      
         System::String^ tempPath = "database_temp.txt";
 
         if (!System::IO::File::Exists(sourcePath)) {
@@ -138,7 +137,7 @@ namespace SUMMERprak {
         bool found = false;
         System::String^ line;
         while ((line = reader->ReadLine()) != nullptr) {
-            // Разбиваем строку по табуляции, чтобы узнать ID
+           
             bool rezf = false;
             array<System::String^>^ fields = line->Split('\t');
 
@@ -146,21 +145,21 @@ namespace SUMMERprak {
                 if (fields->Length > 0 && System::String::Compare(fields[0]->Trim(), id_del[i]->Trim()) == 0) {
                     rezf = true;
                     printline = printline + "Успешное удаление " + id_del[i] + "\n";
-                } // ПРОПУСКАЕМ эту строку, не записываем её во временный файл
+                } 
             }
             if (rezf) {
                 found = true; continue;
             }
-            // Все остальные строки записываем обратно
+           
             writer->WriteLine(line);
         }
 
         reader->Close();
         writer->Close();
         if (found) {
-            // Удаляем старый файл базы данных
+           
             System::IO::File::Delete(sourcePath);
-            // Переименовываем временный файл в основной
+            
             System::IO::File::Move(tempPath, sourcePath);
 
             System::Windows::Forms::MessageBox::Show(printline);
@@ -174,16 +173,17 @@ namespace SUMMERprak {
         Pols_main_form::LoadDataFromFile();
     }
 
+    //проверяем на поменялась ли строка таблицы
     void Pols_main_form::dataGridViewPols_CellValueChanged(System::Object^ sender, System::Windows::Forms::DataGridViewCellEventArgs^ e) {
         if (e->RowIndex >= 0 && !dataGridViewPols->Rows[e->RowIndex]->IsNewRow) {
 
-            // Берем ID текущей изменённой строки
+            
             System::Object^ idVal = dataGridViewPols->Rows[e->RowIndex]->Cells[0]->Value;
 
             if (idVal != nullptr) {
                 System::String^ currentId = idVal->ToString()->Trim();
 
-                // Если этого ID еще нет в списке изменённых, добавляем его
+                
                 if (!modifiedIds->Contains(currentId)) {
                     modifiedIds->Add(currentId);
                 }
@@ -191,11 +191,12 @@ namespace SUMMERprak {
         }
     }
 
+    //получаем минимальный id 
     int GetMinUnusedId(System::String^ filePath) {
-        // Если файл еще не создан или пуст, первый ID будет 1
+        
         if (!System::IO::File::Exists(filePath)) return 1;
 
-        // Используем стандартный .NET список для хранения занятых ID
+        
         System::Collections::Generic::List<int>^ busyIds = gcnew System::Collections::Generic::List<int>();
 
         System::IO::StreamReader^ reader = gcnew System::IO::StreamReader(filePath, System::Text::Encoding::GetEncoding(1251));
@@ -207,7 +208,7 @@ namespace SUMMERprak {
             array<System::String^>^ fields = line->Split('\t');
             if (fields->Length > 0) {
                 int currentId = 0;
-                // Если первый элемент строки — число, добавляем его в список занятых
+               
                 if (System::Int32::TryParse(fields[0]->Trim(), currentId)) {
                     busyIds->Add(currentId);
                 }
@@ -231,7 +232,7 @@ namespace SUMMERprak {
         return targetId;
     }
 
-
+    //проверка на ввод
     int proverka_data(System::String^ strprov)
     {
         if (System::String::IsNullOrWhiteSpace(strprov) || strprov->Length < 4)
@@ -350,7 +351,7 @@ namespace SUMMERprak {
         String^ sourcePath = "database.txt";
         String^ tempPath = "database_temp.txt";
 
-        // ---------- 1. Предварительная проверка ВСЕХ строк таблицы ----------
+        
         for (int i = 0; i < dataGridViewPols->Rows->Count; i++)
         {
             if (dataGridViewPols->Rows[i]->IsNewRow) continue;
@@ -386,7 +387,7 @@ namespace SUMMERprak {
 
         bool hasNewRows = false;
 
-        // ---------- 2.1. Генерация ID для новых строк и запись в конец файла ----------
+      
         System::IO::StreamWriter^ appendWriter = nullptr;
         try
         {
@@ -399,13 +400,13 @@ namespace SUMMERprak {
                 
                 System::Object^ fioCell = dataGridViewPols->Rows[i]->Cells[1]->Value;
                 if (fioCell == nullptr || System::String::IsNullOrWhiteSpace(fioCell->ToString())) {
-                    continue; // Строка пустая, мы её НЕ записываем в файл и НЕ ругаемся на ошибки
+                    continue; 
                 }
 
                 if (dataGridViewPols->Rows[i]->Cells[0]->Value == nullptr ||
                     String::IsNullOrWhiteSpace(dataGridViewPols->Rows[i]->Cells[0]->Value->ToString()))
                 {
-                    // Получаем минимальный свободный ID (файл сейчас не заблокирован, т.к. мы ещё не читаем)
+                    // Получаем минимальный свободный ID
                     appendWriter->Close();
                     int newId = GetMinUnusedId(sourcePath);
                     dataGridViewPols->Rows[i]->Cells[0]->Value = newId.ToString();
@@ -422,7 +423,7 @@ namespace SUMMERprak {
                 appendWriter->Close();
         }
 
-        // ---------- 2.2. Обновление изменённых строк ----------
+        
         if (modifiedIds != nullptr && modifiedIds->Count > 0)
         {
             System::IO::StreamReader^ reader = nullptr;
@@ -481,7 +482,7 @@ namespace SUMMERprak {
             modifiedIds->Clear();
         }
 
-        // ---------- 3. Сообщение об успехе ----------
+        
         if (hasNewRows || (modifiedIds != nullptr && modifiedIds->Count == 0))
             MessageBox::Show("Изменения успешно сохранены в БД!", "Успех");
     }

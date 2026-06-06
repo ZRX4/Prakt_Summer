@@ -418,7 +418,7 @@ private: System::Void help_button_Click(System::Object^ sender, System::EventArg
 		"8 Ч ƒискретна€ математика\n" +
 		"9 Ч јнглийский €зык";
 
-	// ѕоказываем подсказку пр€мо под кнопкой справки на 15 секунд
+	
 	this->toolTip1->Show(helpMessage, help_button, 0, help_button->Height, 15000);
 }
 };
